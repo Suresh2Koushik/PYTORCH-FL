@@ -1,0 +1,24 @@
+import torch
+
+input_img = torch.randn((1,10))
+input_img
+
+
+weights = torch.randn_like(input_img)
+weights
+
+bias = torch.randn((1,1))
+bias
+
+
+output = torch.sum(input_img * weights) + bias
+output
+
+
+def sigmoid(x):
+    return 1/(1+torch.exp(-x))
+    
+    
+
+output = sigmoid(output)
+output
