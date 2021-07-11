@@ -1,0 +1,45 @@
+#Loading MNIST dataset using pytorch
+
+
+import torch, torchvision
+from torchvision import transforms
+
+
+# Download MNIST manually using 'wget' then uncompress the file
+!wget www.di.ens.fr/~lelarge/MNIST.tar.gz
+!tar -zxvf MNIST.tar.gz
+
+
+transform = transforms.Compose([transforms.ToTensor()])
+
+
+trainset = torchvision.datasets.MNIST(root='./', train=True, transform=transform, download=True)
+
+
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
+
+
+
+for images, labels in trainloader:
+    print(images.size(), labels.size())
+    break
+
+batches = iter(trainloader)
+
+
+one_batch = next(batches)
+
+
+images, labels = one_batch
+
+
+len(images)
+
+
+!pip install matplotlib
+import matplotlib.pyplot as plt
+
+
+plt.imshow(images[0].numpy().squeeze(), cmap='Greys_r')
+
+
