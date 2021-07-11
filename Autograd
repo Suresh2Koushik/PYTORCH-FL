@@ -1,0 +1,17 @@
+
+import torch
+
+x = torch.randn((1,5), requires_grad=True)
+x
+
+b = x + 2
+b
+c = b * 2
+c
+c = c.mean()
+c
+x.grad
+
+c.backward()
+
+x.grad
