@@ -1,0 +1,48 @@
+
+import torch, torchvision
+from torchvision import transforms
+import matplotlib.pyplot as plt
+from torch import nn, optim
+
+
+# Download MNIST manually using 'wget' then uncompress the file
+!wget www.di.ens.fr/~lelarge/MNIST.tar.gz
+!tar -zxvf MNIST.tar.gz
+
+transform = transforms.Compose([transforms.ToTensor()])
+trainset = torchvision.datasets.MNIST(root='./', train=True, transform=transform, download=True)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
+
+class Net(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.hidden = nn.Linear(28*28, 512)
+        self.output = nn.Linear(512, 10)
+        
+        self.sigmoid = nn.Sigmoid()
+        self.softmax = nn.LogSoftmax(dim=1)
+    
+    def forward(self, x):
+        x = self.hidden(x)
+        x = self.sigmoid(x)
+        x = self.output(x)
+        x = self.softmax(x)
+        
+        return x
+model = Net()
+model
+
+criterion = nn.NLLLoss()
+
+
+images, labels = next(iter(trainloader))
+
+images = images.view(images.shape[0], -1)
+logits = model(images)
+loss = criterion(logits, labels)
+loss
+tensor(2.3581, grad_fn=<NllLossBackward>)
+loss.backward()
+optimizer = optim.SGD(model.parameters(), lr=0.01)
+optimizer.step()
+optimizer
