@@ -1,4 +1,5 @@
-# PYTORCH-DIARIEShttps://www.udemy.com/course/federated_learning
+# PYTORCH-DIARIES
+
 
 I'm Learing Pytorch via the udemy course
 
