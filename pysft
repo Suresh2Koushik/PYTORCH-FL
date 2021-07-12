@@ -1,0 +1,27 @@
+import torch
+import syft as sy
+
+
+hook = sy.TorchHook(torch)
+
+bob = sy.VirtualWorker(hook, id='bob')
+bob
+
+bob._objects
+
+x = torch.Tensor([1,2,3])
+x
+
+x = x.send(bob)
+x
+bob._objects
+
+x.location == bob
+True
+bob.id
+
+'bob'
+x.location.id == bob.id
+x = x.get()
+
+x
