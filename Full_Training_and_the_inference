@@ -1,0 +1,27 @@
+for epoch in range(5):
+    running_loss = 0
+    for images, labels in trainloader:
+        images = images.view(images.shape[0], -1)
+        optimizer.zero_grad()
+        logits = model(images)
+        loss = criterion(logits, labels)
+        loss.backward()
+        optimizer.step()
+        running_loss += loss.item()
+    else:
+        print('The running loss is: {}'.format(running_loss/len(trainloader)))
+        
+        images, labels = next(iter(trainloader))
+img = images[0].view(1, -1)
+
+
+with torch.no_grad():
+    logprobs = model(img)
+    
+  logprobs
+  
+  
+probs = torch.exp(logprobs)
+probs
+
+torch.argmax(probs)
